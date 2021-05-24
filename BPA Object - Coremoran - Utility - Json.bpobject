@@ -1,0 +1,629 @@
+﻿<process name="Coremoran - Utility - Json" version="1.0" bpversion="6.10.1.35171" narrative="" byrefcollection="true" type="object" runmode="Background" preferredid="e5692fec-9227-4660-89cd-6eeae12d00f2">
+  <appdef>
+    <element name="Application Root">
+      <id>266f0367-4fed-4186-a7d0-086a97b7eae4</id>
+      <type>Application</type>
+      <basetype>Application</basetype>
+      <datatype>unknown</datatype>
+      <diagnose>False</diagnose>
+    </element>
+  </appdef>
+  <view>
+    <camerax>0</camerax>
+    <cameray>21</cameray>
+    <zoom version="2">1.25</zoom>
+  </view>
+  <preconditions />
+  <endpoint narrative="" />
+  <subsheet subsheetid="b1ba0df2-4913-4f40-8202-c804185bbe1a" type="CleanUp" published="True">
+    <name>Clean Up</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>0</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="73a8745c-2576-40bb-80a2-bdef1e1d4279" type="Normal" published="False">
+    <name>Load From Nuget</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>-21</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="d7940972-ea56-4f15-a4c5-360dfeb8b0d6" type="Normal" published="True">
+    <name>Collection2Json</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>0</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="18a534da-3d86-4428-9358-2bc87d253388" type="Normal" published="True">
+    <name>Json2Collection</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>0</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="80e38b89-3360-40a6-96b0-6798a7875383" type="Normal" published="True">
+    <name>Json SelectToken</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>0</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="1216a706-56ab-4623-8cb2-376ce3678c9d" type="Normal" published="True">
+    <name>Json SelectTokens</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>0</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="d1c88c3e-4c89-4a82-9ea0-726475241feb" type="Normal" published="True">
+    <name>Equals</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>0</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <stage stageid="954c409a-89fa-45e0-832a-2c23c4436fc2" name="Start" type="Start">
+    <loginhibit />
+    <display x="15" y="-105" />
+    <onsuccess>9763888e-dfd3-46b5-afb8-09a8d0cf3452</onsuccess>
+  </stage>
+  <stage stageid="07b9899a-459f-460d-a66a-c8b8b48cb653" name="End" type="End">
+    <loginhibit />
+    <display x="15" y="45" />
+  </stage>
+  <stage stageid="ee18652d-981b-4cb4-9339-6c959ea3d7bf" name="Stage1" type="ProcessInfo">
+    <display x="-195" y="-105" w="150" h="90" />
+    <references>
+      <reference>System.dll</reference>
+      <reference>System.Data.dll</reference>
+      <reference>System.Xml.dll</reference>
+      <reference>Newtonsoft.Json.dll</reference>
+      <reference>System.Data.DataSetExtensions.dll</reference>
+      <reference>System.Xml.Linq.dll</reference>
+      <reference>System.Core.dll</reference>
+      <reference>Microsoft.CSharp.dll</reference>
+    </references>
+    <imports>
+      <import>System</import>
+      <import>Newtonsoft.Json</import>
+      <import>System.Data</import>
+      <import>System.Collections.Generic</import>
+      <import>System.Linq</import>
+      <import>System.IO</import>
+      <import>Newtonsoft.Json.Linq</import>
+      <import>System.Globalization</import>
+      <import>System.Xml</import>
+      <import>System.Xml.Linq</import>
+      <import>System.Diagnostics</import>
+      <import>System.Reflection</import>
+    </imports>
+    <language>csharp</language>
+    <globalcode><![CDATA[]]></globalcode>
+    <code><![CDATA[IDictionary<string, Assembly> assemblies = new Dictionary<string, Assembly>();
+
+T InvokeStaticMethod<T>(Assembly assembly, string fullQualifiedClassName, string methodName, params object[] parameters)
+{
+	var type = assembly.GetType(fullQualifiedClassName);
+	return (T)type.GetMethod(methodName, BindingFlags.Static|BindingFlags.Public).Invoke(null, parameters);
+}]]></code>
+  </stage>
+  <stage stageid="a90e0667-fd35-48a0-b79f-867c787bc0b8" name="Clean Up" type="SubSheetInfo">
+    <subsheetid>b1ba0df2-4913-4f40-8202-c804185bbe1a</subsheetid>
+    <display x="-195" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="2d66ed8e-32ac-43b6-b630-7ac0dd2fc426" name="Start" type="Start">
+    <subsheetid>b1ba0df2-4913-4f40-8202-c804185bbe1a</subsheetid>
+    <loginhibit />
+    <display x="15" y="-105" />
+    <onsuccess>49e24b34-3ab5-4190-bce5-02ee07a0f4af</onsuccess>
+  </stage>
+  <stage stageid="49e24b34-3ab5-4190-bce5-02ee07a0f4af" name="End" type="End">
+    <subsheetid>b1ba0df2-4913-4f40-8202-c804185bbe1a</subsheetid>
+    <loginhibit />
+    <display x="15" y="90" />
+  </stage>
+  <stage stageid="ccd1eec8-501b-4416-899d-19a5ed3c1127" name="Collection2Json" type="SubSheetInfo">
+    <subsheetid>d7940972-ea56-4f15-a4c5-360dfeb8b0d6</subsheetid>
+    <narrative>Serialize a collection into a JSON string. A "SingleRow" collection will be serialized as JSON object, even if it is a nested collection</narrative>
+    <display x="-195" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="cc7b7e06-b6f8-413d-9882-307a4aa5081c" name="Start" type="Start">
+    <subsheetid>d7940972-ea56-4f15-a4c5-360dfeb8b0d6</subsheetid>
+    <loginhibit />
+    <display x="15" y="-105" />
+    <inputs>
+      <input type="collection" name="data" narrative="Collection to be serialized" stage="data" />
+    </inputs>
+    <onsuccess>ea8230bd-40aa-440b-8d4d-8696643764fa</onsuccess>
+  </stage>
+  <stage stageid="99cf16e7-368d-4535-9e3b-d5ffdf3580f5" name="End" type="End">
+    <subsheetid>d7940972-ea56-4f15-a4c5-360dfeb8b0d6</subsheetid>
+    <loginhibit />
+    <display x="15" y="90" />
+    <outputs>
+      <output type="text" name="result" narrative="The serialized collection as string" stage="result" />
+    </outputs>
+  </stage>
+  <stage stageid="8968ce88-0277-4db3-b8be-0f0d94890f5f" name="Note1" type="Note">
+    <subsheetid>b1ba0df2-4913-4f40-8202-c804185bbe1a</subsheetid>
+    <narrative>Clean Up Page
+
+This is an optional page where you might choose to perform some finalisation (or "cleanup") tasks as your business object is closed down.
+
+The cleanup action will be called automatically immediately after closing your business object at the end of a business process.
+
+You will not be able to call this action from a business process, nor will it be called at any other time than before the disposal of the business object.</narrative>
+    <display x="-180" y="60" w="180" h="230" />
+  </stage>
+  <stage stageid="22321ee7-cb87-4957-8daa-6951c809e0f4" name="data" type="Collection">
+    <subsheetid>d7940972-ea56-4f15-a4c5-360dfeb8b0d6</subsheetid>
+    <display x="-195" y="-15" w="120" h="30" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="b21f2fa9-8fdb-44ff-b8d0-bffb62c97544" name="result" type="Data">
+    <subsheetid>d7940972-ea56-4f15-a4c5-360dfeb8b0d6</subsheetid>
+    <display x="-195" y="60" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="ea8230bd-40aa-440b-8d4d-8696643764fa" name="DataTable2Json" type="Code">
+    <subsheetid>d7940972-ea56-4f15-a4c5-360dfeb8b0d6</subsheetid>
+    <loginhibit />
+    <display x="15" y="-15" />
+    <inputs>
+      <input type="collection" name="data" expr="[data]" />
+    </inputs>
+    <outputs>
+      <output type="text" name="result" stage="result" />
+    </outputs>
+    <onsuccess>99cf16e7-368d-4535-9e3b-d5ffdf3580f5</onsuccess>
+    <code><![CDATA[result = InvokeStaticMethod<string>(assemblies["json"], "Coremoran.BluePrism.Json.BluePrismConverter", "CollectionToJson", data);]]></code>
+  </stage>
+  <stage stageid="2a5f3282-f9bf-4439-9535-22d5e0a7e2c9" name="Json2Collection" type="SubSheetInfo">
+    <subsheetid>18a534da-3d86-4428-9358-2bc87d253388</subsheetid>
+    <narrative>Deserialize a JSON string into a collection</narrative>
+    <display x="-195" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="a6b168ab-fb34-42d0-9a9f-987d8f5b8656" name="Start" type="Start">
+    <subsheetid>18a534da-3d86-4428-9358-2bc87d253388</subsheetid>
+    <loginhibit />
+    <display x="15" y="-105" />
+    <inputs>
+      <input type="text" name="json" narrative="json string to be deserialized" stage="json" />
+    </inputs>
+    <onsuccess>36f938ec-b075-4c56-943b-e71cf63e1935</onsuccess>
+  </stage>
+  <stage stageid="cba31807-775f-4af6-9e24-b5f4c2628716" name="End" type="End">
+    <subsheetid>18a534da-3d86-4428-9358-2bc87d253388</subsheetid>
+    <loginhibit />
+    <display x="15" y="90" />
+    <outputs>
+      <output type="collection" name="result" narrative="the deserialized collection" stage="result" />
+    </outputs>
+  </stage>
+  <stage stageid="9abd6cf4-70eb-4a7a-99da-10d6f23e9b9f" name="json" type="Data">
+    <subsheetid>18a534da-3d86-4428-9358-2bc87d253388</subsheetid>
+    <display x="-195" y="-15" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="38d5cbf8-369e-4462-ae35-003f9d4c9f59" name="result" type="Collection">
+    <subsheetid>18a534da-3d86-4428-9358-2bc87d253388</subsheetid>
+    <display x="-195" y="60" w="120" h="30" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="36f938ec-b075-4c56-943b-e71cf63e1935" name="Json2Col" type="Code">
+    <subsheetid>18a534da-3d86-4428-9358-2bc87d253388</subsheetid>
+    <loginhibit />
+    <display x="15" y="-15" />
+    <inputs>
+      <input type="text" name="json" expr="[json]" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="result" stage="result" />
+    </outputs>
+    <onsuccess>cba31807-775f-4af6-9e24-b5f4c2628716</onsuccess>
+    <code><![CDATA[result = InvokeStaticMethod<DataTable>(assemblies["json"], "Coremoran.BluePrism.Json.BluePrismConverter", "JsonToCollection", json);]]></code>
+  </stage>
+  <stage stageid="c23416bf-f050-461d-8bfa-7d38a71ac602" name="Json SelectToken" type="SubSheetInfo">
+    <subsheetid>80e38b89-3360-40a6-96b0-6798a7875383</subsheetid>
+    <narrative>Selects a JToken using a JPath expression. Selects the token that matches the object path.</narrative>
+    <display x="-195" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="d45754c9-9c1a-4461-b885-3ce946d90bb2" name="Start" type="Start">
+    <subsheetid>80e38b89-3360-40a6-96b0-6798a7875383</subsheetid>
+    <loginhibit />
+    <display x="15" y="-105" />
+    <inputs>
+      <input type="text" name="json" narrative="the json to be queried" stage="json" />
+      <input type="text" name="query" narrative="the json path expression" stage="query" />
+    </inputs>
+    <onsuccess>262e72b1-a66f-4e03-ae19-30468e215602</onsuccess>
+  </stage>
+  <stage stageid="201a4aa0-1a19-4b94-9537-98ee750eb226" name="End" type="End">
+    <subsheetid>80e38b89-3360-40a6-96b0-6798a7875383</subsheetid>
+    <loginhibit />
+    <display x="15" y="90" />
+    <outputs>
+      <output type="text" name="result" narrative="A JToken, or empty." stage="result" />
+      <output type="flag" name="success" narrative="The query result was not null" stage="success" />
+    </outputs>
+  </stage>
+  <stage stageid="2d5addd6-67a5-42a1-9290-cab48cde97b3" name="json" type="Data">
+    <subsheetid>80e38b89-3360-40a6-96b0-6798a7875383</subsheetid>
+    <display x="-195" y="-15" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="d01b23e6-6505-41fd-b130-61470d612c3b" name="result" type="Data">
+    <subsheetid>80e38b89-3360-40a6-96b0-6798a7875383</subsheetid>
+    <display x="-195" y="90" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="262e72b1-a66f-4e03-ae19-30468e215602" name="SelectToken" type="Code">
+    <subsheetid>80e38b89-3360-40a6-96b0-6798a7875383</subsheetid>
+    <loginhibit />
+    <display x="15" y="-15" />
+    <inputs>
+      <input type="text" name="json" expr="[json]" />
+      <input type="text" name="query" expr="[query]" />
+    </inputs>
+    <outputs>
+      <output type="text" name="result" stage="result" />
+      <output type="flag" name="success" stage="success" />
+    </outputs>
+    <onsuccess>201a4aa0-1a19-4b94-9537-98ee750eb226</onsuccess>
+    <code><![CDATA[var jtoken = JToken.Parse(json);
+var token = jtoken.SelectToken(query);
+result = token?.ToString();
+success = token == null;]]></code>
+  </stage>
+  <stage stageid="d08fd127-d12d-4642-b101-487b0b12a7d0" name="query" type="Data">
+    <subsheetid>80e38b89-3360-40a6-96b0-6798a7875383</subsheetid>
+    <display x="-195" y="15" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="fb485e81-5b6a-4c86-82e7-d0a64879d9be" name="Equals" type="SubSheetInfo">
+    <subsheetid>d1c88c3e-4c89-4a82-9ea0-726475241feb</subsheetid>
+    <narrative>Compares the values of two tokens, including the values of all descendant tokens.</narrative>
+    <display x="-195" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="f1c21dac-2a2e-47f3-849d-2a3e825f79c7" name="Start" type="Start">
+    <subsheetid>d1c88c3e-4c89-4a82-9ea0-726475241feb</subsheetid>
+    <loginhibit />
+    <display x="15" y="-105" />
+    <inputs>
+      <input type="text" name="JsonA" stage="JsonA" />
+      <input type="text" name="JsonB" stage="JsonB" />
+    </inputs>
+    <onsuccess>6e3c1b77-ce22-41a7-a423-b48e1450537e</onsuccess>
+  </stage>
+  <stage stageid="d2f1b536-a5fb-4ba3-ad69-57d324e25534" name="End" type="End">
+    <subsheetid>d1c88c3e-4c89-4a82-9ea0-726475241feb</subsheetid>
+    <loginhibit />
+    <display x="15" y="15" />
+    <outputs>
+      <output type="flag" name="Equals" narrative="true if the tokens are equal; otherwise false." stage="Equals" />
+    </outputs>
+  </stage>
+  <stage stageid="d4db0475-fcd2-4eec-9262-c54b5e768cc4" name="JsonA" type="Data">
+    <subsheetid>d1c88c3e-4c89-4a82-9ea0-726475241feb</subsheetid>
+    <display x="-195" y="-15" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="996301db-b27b-44c0-960f-f6994437ebc8" name="JsonB" type="Data">
+    <subsheetid>d1c88c3e-4c89-4a82-9ea0-726475241feb</subsheetid>
+    <display x="-195" y="15" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="6e3c1b77-ce22-41a7-a423-b48e1450537e" name="Deep Equals" type="Code">
+    <subsheetid>d1c88c3e-4c89-4a82-9ea0-726475241feb</subsheetid>
+    <loginhibit />
+    <display x="15" y="-45" />
+    <inputs>
+      <input type="text" name="jsonA" expr="[JsonA]" />
+      <input type="text" name="jsonB" expr="[JsonB]" />
+    </inputs>
+    <outputs>
+      <output type="flag" name="equals" stage="Equals" />
+    </outputs>
+    <onsuccess>d2f1b536-a5fb-4ba3-ad69-57d324e25534</onsuccess>
+    <code><![CDATA[var ja = JToken.Parse(jsonA);
+var jb = JToken.Parse(jsonB);
+
+equals = JToken.DeepEquals(ja,jb);]]></code>
+  </stage>
+  <stage stageid="7439e90a-9454-4229-a29e-61cc51635cfe" name="Equals" type="Data">
+    <subsheetid>d1c88c3e-4c89-4a82-9ea0-726475241feb</subsheetid>
+    <display x="-195" y="90" w="120" h="30" />
+    <datatype>flag</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="f093f0b6-a220-438a-93df-5dff9ac57815" name="in" type="Block">
+    <subsheetid>d7940972-ea56-4f15-a4c5-360dfeb8b0d6</subsheetid>
+    <loginhibit />
+    <display x="-270" y="-45" w="150" h="60" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="963a19d1-addd-47cd-946c-90101e467ee8" name="out" type="Block">
+    <subsheetid>d7940972-ea56-4f15-a4c5-360dfeb8b0d6</subsheetid>
+    <loginhibit />
+    <display x="-270" y="30" w="150" h="60" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="03eedd27-1021-400e-8e95-17ab0c751872" name="in" type="Block">
+    <subsheetid>18a534da-3d86-4428-9358-2bc87d253388</subsheetid>
+    <loginhibit />
+    <display x="-270" y="-45" w="150" h="60" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="78b3217a-1c5a-494e-8cae-1e28fdbf5291" name="out" type="Block">
+    <subsheetid>18a534da-3d86-4428-9358-2bc87d253388</subsheetid>
+    <loginhibit />
+    <display x="-270" y="30" w="150" h="60" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="0e7d79b7-f311-45ac-880e-532245282ff2" name="in" type="Block">
+    <subsheetid>80e38b89-3360-40a6-96b0-6798a7875383</subsheetid>
+    <loginhibit />
+    <display x="-270" y="-45" w="150" h="90" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="0316a163-2d57-4dc7-9b0b-1f9aa4e8cfbe" name="out" type="Block">
+    <subsheetid>80e38b89-3360-40a6-96b0-6798a7875383</subsheetid>
+    <loginhibit />
+    <display x="-270" y="60" w="150" h="90" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="4b5c1d34-dd3a-4bb6-8961-2f97e7dc37bb" name="Json SelectTokens" type="SubSheetInfo">
+    <subsheetid>1216a706-56ab-4623-8cb2-376ce3678c9d</subsheetid>
+    <narrative>Selects a collection of elements using a JPath expression.</narrative>
+    <display x="-195" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="4077b2bc-2ba8-4626-b983-8398f13af667" name="Start" type="Start">
+    <subsheetid>1216a706-56ab-4623-8cb2-376ce3678c9d</subsheetid>
+    <loginhibit />
+    <display x="15" y="-105" />
+    <inputs>
+      <input type="text" name="json" narrative="the json to be queried" stage="json" />
+      <input type="text" name="query" narrative="the json path expression" stage="query" />
+    </inputs>
+    <onsuccess>5c150fc0-14e3-4eef-8d8d-2eeb182ca08e</onsuccess>
+  </stage>
+  <stage stageid="9299ed26-4d3e-4ded-a2db-499d47a4cffb" name="End" type="End">
+    <subsheetid>1216a706-56ab-4623-8cb2-376ce3678c9d</subsheetid>
+    <loginhibit />
+    <display x="15" y="90" />
+    <outputs>
+      <output type="collection" name="result" narrative="the query result or empty" stage="result" />
+      <output type="number" name="count" narrative="the number of result rows" stage="count" />
+    </outputs>
+  </stage>
+  <stage stageid="b41d0712-5e88-4630-98c7-33f0c69bfdd4" name="json" type="Data">
+    <subsheetid>1216a706-56ab-4623-8cb2-376ce3678c9d</subsheetid>
+    <display x="-195" y="-15" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="5c150fc0-14e3-4eef-8d8d-2eeb182ca08e" name="SelectTokens" type="Code">
+    <subsheetid>1216a706-56ab-4623-8cb2-376ce3678c9d</subsheetid>
+    <loginhibit />
+    <display x="15" y="-15" />
+    <inputs>
+      <input type="text" name="json" expr="[json]" />
+      <input type="text" name="query" expr="[query]" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="result" stage="result" />
+      <output type="number" name="count" stage="count" />
+    </outputs>
+    <onsuccess>9299ed26-4d3e-4ded-a2db-499d47a4cffb</onsuccess>
+    <code><![CDATA[var jtoken = JToken.Parse(json);
+var token = jtoken.SelectTokens(query)?.Select(t => t.ToString());
+result = InvokeStaticMethod<DataTable>(assemblies["json"], "Coremoran.BluePrism.Json.BluePrismConverter", "ObjectToCollection", token);
+count = result.Rows.Count;]]></code>
+  </stage>
+  <stage stageid="778541ee-78cc-49a2-8915-2dd4d01cf222" name="query" type="Data">
+    <subsheetid>1216a706-56ab-4623-8cb2-376ce3678c9d</subsheetid>
+    <display x="-195" y="15" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="c8907a4e-e809-48fc-87cb-5a8995d0a402" name="in" type="Block">
+    <subsheetid>1216a706-56ab-4623-8cb2-376ce3678c9d</subsheetid>
+    <loginhibit />
+    <display x="-270" y="-45" w="150" h="90" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="4dde71c3-0980-479d-a79d-1363d5b90f7d" name="out" type="Block">
+    <subsheetid>1216a706-56ab-4623-8cb2-376ce3678c9d</subsheetid>
+    <loginhibit />
+    <display x="-270" y="60" w="150" h="90" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="80c91170-227d-4ee7-800d-43e412679eae" name="result" type="Collection">
+    <subsheetid>1216a706-56ab-4623-8cb2-376ce3678c9d</subsheetid>
+    <loginhibit />
+    <display x="-195" y="90" w="120" h="30" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="bd2397f0-0ed2-4864-ba31-5397b46fbbd0" name="count" type="Data">
+    <subsheetid>1216a706-56ab-4623-8cb2-376ce3678c9d</subsheetid>
+    <display x="-195" y="120" w="120" h="30" />
+    <datatype>number</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="f331ada3-0232-4175-bab2-8bb88befb21e" name="success" type="Data">
+    <subsheetid>80e38b89-3360-40a6-96b0-6798a7875383</subsheetid>
+    <display x="-195" y="120" w="120" h="30" />
+    <datatype>flag</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="cd0656fc-8cc5-4fd3-b0c1-9c18c23521c2" name="in" type="Block">
+    <subsheetid>d1c88c3e-4c89-4a82-9ea0-726475241feb</subsheetid>
+    <loginhibit />
+    <display x="-270" y="-45" w="150" h="90" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="fb63978a-9a9b-4c71-9b6d-9b5b154ae295" name="out" type="Block">
+    <subsheetid>d1c88c3e-4c89-4a82-9ea0-726475241feb</subsheetid>
+    <loginhibit />
+    <display x="-270" y="60" w="150" h="60" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="101175b9-b9d9-4f7e-87e9-bdddd6593716" name="Load From Nuget" type="SubSheetInfo">
+    <subsheetid>73a8745c-2576-40bb-80a2-bdef1e1d4279</subsheetid>
+    <display x="-195" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="3e64e347-1b15-4910-b25b-bb00f218fd50" name="Start" type="Start">
+    <subsheetid>73a8745c-2576-40bb-80a2-bdef1e1d4279</subsheetid>
+    <loginhibit />
+    <display x="15" y="-105" />
+    <inputs>
+      <input type="text" name="LocalKey" stage="LocalKey" />
+      <input type="text" name="PackageInfoCsv" stage="PackageInfoCsv" />
+    </inputs>
+    <onsuccess>d46d1884-34e6-4c73-9db9-7f6d52474586</onsuccess>
+  </stage>
+  <stage stageid="03f7cbb3-930e-4707-9b2d-c5839ea1a088" name="End" type="End">
+    <subsheetid>73a8745c-2576-40bb-80a2-bdef1e1d4279</subsheetid>
+    <loginhibit />
+    <display x="15" y="15" />
+  </stage>
+  <stage stageid="0cfd5ad5-2be5-402d-874d-70b558bcd619" name="LocalKey" type="Data">
+    <subsheetid>73a8745c-2576-40bb-80a2-bdef1e1d4279</subsheetid>
+    <display x="-195" y="-15" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="e4411cd1-1ec3-451d-b97c-08c51cba90d0" name="in" type="Block">
+    <subsheetid>73a8745c-2576-40bb-80a2-bdef1e1d4279</subsheetid>
+    <loginhibit />
+    <display x="-270" y="-45" w="150" h="90" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="d46d1884-34e6-4c73-9db9-7f6d52474586" name="LoadFromNuget" type="Code">
+    <subsheetid>73a8745c-2576-40bb-80a2-bdef1e1d4279</subsheetid>
+    <loginhibit />
+    <display x="15" y="-45" />
+    <inputs>
+      <input type="text" name="localCache" expr="[BluePrismAddOnDirectory]" />
+      <input type="text" name="localKey" expr="[LocalKey]" />
+      <input type="text" name="packageInfo" expr="[PackageInfoCsv]" />
+    </inputs>
+    <onsuccess>03f7cbb3-930e-4707-9b2d-c5839ea1a088</onsuccess>
+    <code><![CDATA[if (!assemblies.ContainsKey(localKey))
+{
+	var parts = packageInfo.Split(',');
+	var assemblyPath =  Path.Combine(localCache, parts[2]);
+	if (!File.Exists(assemblyPath))
+	{
+		var process = Process.Start(new ProcessStartInfo("nuget.exe") {
+			WorkingDirectory = localCache,
+			WindowStyle = ProcessWindowStyle.Hidden,
+			Arguments = string.Format("install {0} -Version {1} -FallbackSource \"{2}\"", parts[0], parts[1], Path.Combine(localCache, "Packages"))
+		});
+		process.WaitForExit();
+		if (process.ExitCode!=0)
+		{
+			throw new Exception("Can not load Nuget package " + parts[0]);
+		}
+	}
+
+	assemblies.Add(localKey, Assembly.UnsafeLoadFrom(assemblyPath));
+}]]></code>
+  </stage>
+  <stage stageid="4d443c33-9112-4c8a-9481-9a5dd16e8806" name="BluePrismAddOnDirectory" type="Data">
+    <subsheetid>73a8745c-2576-40bb-80a2-bdef1e1d4279</subsheetid>
+    <loginhibit />
+    <display x="-195" y="90" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <exposure>Environment</exposure>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="ec15b664-9af2-4f7f-a8a1-f44661755ef1" name="Environment" type="Block">
+    <subsheetid>73a8745c-2576-40bb-80a2-bdef1e1d4279</subsheetid>
+    <loginhibit />
+    <display x="-270" y="60" w="150" h="60" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="211e463d-cbfa-4b79-8e4e-d6931b9d365c" name="PackageInfoCsv" type="Data">
+    <subsheetid>73a8745c-2576-40bb-80a2-bdef1e1d4279</subsheetid>
+    <display x="-195" y="15" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="d871e440-edf8-45bc-9864-bc3f24f96915" name="Nuget: CoremoranBluePrismJson" type="Data">
+    <loginhibit />
+    <display x="-195" y="15" w="150" h="60" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <exposure>Environment</exposure>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="87a90d1c-7d4a-48b2-98d7-525133c4704d" name="Environment" type="Block">
+    <loginhibit />
+    <display x="-270" y="-45" w="150" h="105" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="9763888e-dfd3-46b5-afb8-09a8d0cf3452" name="Load Json" type="SubSheet">
+    <loginhibit />
+    <display x="15" y="-30" />
+    <inputs>
+      <input type="text" name="LocalKey" friendlyname="LocalKey" expr="&quot;json&quot;" />
+      <input type="text" name="PackageInfoCsv" friendlyname="PackageInfoCsv" expr="[Nuget: CoremoranBluePrismJson]" />
+    </inputs>
+    <onsuccess>07b9899a-459f-460d-a66a-c8b8b48cb653</onsuccess>
+    <processid>73a8745c-2576-40bb-80a2-bdef1e1d4279</processid>
+  </stage>
+</process>
