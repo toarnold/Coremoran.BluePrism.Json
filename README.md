@@ -1,5 +1,5 @@
 # Coremoran - Utility - Json
-- [License](LICENSE.md)
+- [License](LICENSE)
 
 This library helps to serialize and deserialize JSON data to or from [BluePrism](https://www.blueprism.com/) collections. This repository contains the NuGet package needed to provide the necessary functionality and a BluePrism VBO.
 
@@ -18,7 +18,7 @@ In BluePrism go to System -> Objects -> Environment Variables
 ![Object Enviroment Variables](Doc/images/environment.png)
 
 The ```Nuget: ...``` variable is a csv (comma separated value) and has the following scheme ```<NuGet-Package-Name,Package-Version,Relativ-Assembly-Path-inside-the-package>```.
-If multiple VBOs are using this package all should reference and use this environemnt variable to avoid assembly-version-hell.
+If multiple VBOs are using this package all should reference and use this environment variable to avoid assembly-version-hell.
 
 Configure ```BluePrismAddOnDirectory``` to an existing directory. This directory will hold your expanded NuGet packages and other assemblies if needed.
 
@@ -39,7 +39,7 @@ The VBO offers the following actions
 | Collection2Json | Serializes the given collection to a JSON string |
 | Json2Collection | Deserializes a given JSON string to a BluePrism collection |
 | Json SelectToken | Selects a JToken using a JPath expression. Selects the token that matches the object path |
-| Json SelectToken | Selects a collection of elements using a JPath expression |
+| Json SelectTokens | Selects a collection of elements using a JPath expression |
 | Equals | Compares the values of two tokens, including the values of all descendant tokens |
 
 The .NET assembly exports ```Coremoran.BluePrism.Json.BluePrismConverter```. A static class with conversion functions.
