@@ -43,7 +43,7 @@ namespace Coremoran.BluePrism.Json
                                 break;
                             case JsonToken.StartObject:
                                 var tempTable = serializer.Deserialize<DataRow>(reader).Table;
-                                var nulls = tempTable.Columns.Cast<DataColumn>().Where(w => tempTable.Rows[0][w.ColumnName] == DBNull.Value).Select(s => s.ColumnName).ToList();
+                                var nulls = tempTable.Columns.Cast<DataColumn>().Where(w => tempTable.Rows[0].IsNull(w.ColumnName)).Select(s => s.ColumnName).ToList();
                                 nulls.ForEach(n => tempTable.Columns.Remove(n));
                                 nullColumns.UnionWith(nulls);
                                 dt.Merge(tempTable, true, MissingSchemaAction.Add);

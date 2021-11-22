@@ -9,7 +9,8 @@ Blue Prism Json depends on [Json.NET](https://github.com/JamesNK/Newtonsoft.Json
 
 ## Installation
 
-Simply install the ```.bprelease``` file. This installs the VBO and two environment variables.
+Got to the [release page](https://github.com/toarnold/Coremoran.BluePrism.Json/releases) and download the ```.bprelease``` latest file.
+Install the ```.bprelease``` file on the usual way. This installs the VBO and two environment variables.
 
 ### Configuration
 
