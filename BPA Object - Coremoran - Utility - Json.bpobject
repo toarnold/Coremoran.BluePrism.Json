@@ -1,4 +1,4 @@
-﻿<process name="Coremoran - Utility - Json" version="1.0" bpversion="6.10.1.35171" narrative="" byrefcollection="true" type="object" runmode="Background" preferredid="e5692fec-9227-4660-89cd-6eeae12d00f2">
+﻿<process name="Coremoran - Utility - Json" version="1.0" bpversion="7.1.2.3518" narrative="" byrefcollection="true" type="object" runmode="Background" preferredid="e5692fec-9227-4660-89cd-6eeae12d00f2">
   <appdef>
     <element name="Application Root">
       <id>266f0367-4fed-4186-a7d0-086a97b7eae4</id>
@@ -17,6 +17,14 @@
   <endpoint narrative="" />
   <subsheet subsheetid="b1ba0df2-4913-4f40-8202-c804185bbe1a" type="CleanUp" published="True">
     <name>Clean Up</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>0</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="18776368-5f37-45ad-a999-9c2855c38b90" type="Normal" published="False">
+    <name>Ensure Nuget</name>
     <view>
       <camerax>0</camerax>
       <cameray>0</cameray>
@@ -74,11 +82,11 @@
   <stage stageid="954c409a-89fa-45e0-832a-2c23c4436fc2" name="Start" type="Start">
     <loginhibit />
     <display x="15" y="-105" />
-    <onsuccess>9763888e-dfd3-46b5-afb8-09a8d0cf3452</onsuccess>
+    <onsuccess>f7194a6b-a12d-40d9-93c0-47a3e1ebe446</onsuccess>
   </stage>
   <stage stageid="07b9899a-459f-460d-a66a-c8b8b48cb653" name="End" type="End">
     <loginhibit />
-    <display x="15" y="45" />
+    <display x="15" y="30" />
   </stage>
   <stage stageid="ee18652d-981b-4cb4-9339-6c959ea3d7bf" name="Stage1" type="ProcessInfo">
     <display x="-195" y="-105" w="150" h="90" />
@@ -618,12 +626,77 @@ count = result.Rows.Count;]]></code>
   </stage>
   <stage stageid="9763888e-dfd3-46b5-afb8-09a8d0cf3452" name="Load Json" type="SubSheet">
     <loginhibit />
-    <display x="15" y="-30" />
+    <display x="15" y="-15" />
     <inputs>
       <input type="text" name="LocalKey" friendlyname="LocalKey" expr="&quot;json&quot;" />
       <input type="text" name="PackageInfoCsv" friendlyname="PackageInfoCsv" expr="[Nuget: CoremoranBluePrismJson]" />
     </inputs>
     <onsuccess>07b9899a-459f-460d-a66a-c8b8b48cb653</onsuccess>
     <processid>73a8745c-2576-40bb-80a2-bdef1e1d4279</processid>
+  </stage>
+  <stage stageid="2076f65b-7588-41b3-bfc2-99a47b3e4e53" name="Ensure Nuget" type="SubSheetInfo">
+    <subsheetid>18776368-5f37-45ad-a999-9c2855c38b90</subsheetid>
+    <display x="-195" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="9ffa8616-c2f3-4dce-bde7-4caf5635bd4d" name="Start" type="Start">
+    <subsheetid>18776368-5f37-45ad-a999-9c2855c38b90</subsheetid>
+    <loginhibit />
+    <display x="15" y="-105" />
+    <onsuccess>74e006ae-3350-45c6-8f0e-5c4e42609bf2</onsuccess>
+  </stage>
+  <stage stageid="783969ba-beb1-4f24-9c87-37b617b24913" name="End" type="End">
+    <subsheetid>18776368-5f37-45ad-a999-9c2855c38b90</subsheetid>
+    <loginhibit />
+    <display x="15" y="45" />
+  </stage>
+  <stage stageid="74e006ae-3350-45c6-8f0e-5c4e42609bf2" name="Test &amp; Download NuGet" type="Code">
+    <subsheetid>18776368-5f37-45ad-a999-9c2855c38b90</subsheetid>
+    <loginhibit />
+    <display x="15" y="-30" />
+    <inputs>
+      <input type="text" name="Url" expr="[NuGetLatest]" />
+      <input type="text" name="Path" expr="[BluePrismAddOnDirectory]&amp;&quot;\nuget.Exe&quot;" />
+    </inputs>
+    <onsuccess>783969ba-beb1-4f24-9c87-37b617b24913</onsuccess>
+    <code><![CDATA[if (!File.Exists(Path))
+{
+	using (var wc = new System.Net.WebClient())
+	{
+		wc.UseDefaultCredentials = true;	
+		wc.DownloadFile(Url, Path);
+	}
+}]]></code>
+  </stage>
+  <stage stageid="1404827e-a712-4444-a8b7-b844510a821a" name="BluePrismAddOnDirectory" type="Data">
+    <subsheetid>18776368-5f37-45ad-a999-9c2855c38b90</subsheetid>
+    <loginhibit />
+    <display x="-195" y="-15" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <exposure>Environment</exposure>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="19decd06-18c2-4183-83bd-2541f143f1e3" name="Environment" type="Block">
+    <subsheetid>18776368-5f37-45ad-a999-9c2855c38b90</subsheetid>
+    <loginhibit />
+    <display x="-270" y="-45" w="150" h="90" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="18153909-0b0e-4562-badd-157311cc8867" name="NuGetLatest" type="Data">
+    <subsheetid>18776368-5f37-45ad-a999-9c2855c38b90</subsheetid>
+    <loginhibit />
+    <display x="-195" y="15" w="120" h="30" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <exposure>Environment</exposure>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="f7194a6b-a12d-40d9-93c0-47a3e1ebe446" name="Ensure Nuget" type="SubSheet">
+    <loginhibit />
+    <display x="15" y="-60" />
+    <onsuccess>9763888e-dfd3-46b5-afb8-09a8d0cf3452</onsuccess>
+    <processid>18776368-5f37-45ad-a999-9c2855c38b90</processid>
   </stage>
 </process>
